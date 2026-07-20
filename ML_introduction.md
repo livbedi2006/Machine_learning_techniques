@@ -1,0 +1,234 @@
+# Machine Learning — Basics
+ 
+> Part of my Machine Learning self-learning repository.
+ 
+---
+ 
+## 1. Machine Learning — Learning from Data
+ 
+**Machine Learning (ML)** is a subset of Artificial Intelligence (AI) that enables a system to automatically learn patterns from **data** and make predictions or decisions, **without being explicitly programmed** with rules for every situation.
+ 
+Instead of writing hardcoded logic (`if-else` rules), we feed data to an algorithm, and the algorithm builds a **model** that captures the underlying patterns in that data.
+ 
+### Related / Overlapping Fields
+ 
+| Term | Meaning |
+|------|---------|
+| **Data Analysis** | The process of inspecting, cleaning, and interpreting data to find useful information and support decision-making. It answers questions about data that already happened (descriptive). |
+| **Data Mining** | The process of discovering hidden patterns, correlations, or anomalies in **large datasets** using statistics and ML techniques. Focuses on finding *previously unknown* patterns. |
+| **Machine Learning** | Using algorithms that learn from data to make predictions on **new/unseen** data. |
+| **Deep Learning** | A subfield of ML based on **Artificial Neural Networks** with multiple layers ("deep" networks). It automatically learns feature representations from raw data (images, text, audio) instead of relying on manually engineered features. |
+ 
+### Traditional Programming vs Machine Learning
+ 
+| Traditional Programming | Machine Learning |
+|---|---|
+| Input: Data + Program (Rules) → Output | Input: Data + Output → Program (Model) |
+| Rules are written manually by a programmer | Rules (patterns) are learned automatically from data |
+| Works well for fixed, well-defined logic | Works well when rules are complex, unknown, or change with data |
+| Doesn't improve on its own | Can improve as more data becomes available |
+| Example: Calculating tax using a fixed formula | Example: Predicting house prices from historical data |
+ 
+**In short:**
+`Traditional Programming = Data + Rules → Output`
+`Machine Learning = Data + Output → Rules (Model)`
+ 
+---
+ 
+## 2. Types of Machine Learning
+ 
+ML algorithms are broadly classified into **four main types**, based on the kind of data and feedback available to the learning system.
+ 
+### 2.1 Supervised Learning
+The model learns from **labeled data** — i.e., input data is paired with the correct output (target). The algorithm learns a mapping function from input (X) to output (Y).
+ 
+> **Definition:** Learning a function that maps inputs to known outputs using labeled training data, so it can predict outputs for new, unseen inputs.
+ 
+### 2.2 Unsupervised Learning
+The model learns from **unlabeled data** — there is no target/output given. The algorithm tries to find hidden structure, patterns, or groupings in the data on its own.
+ 
+> **Definition:** Learning patterns, structures, or groupings from data that has no predefined labels or outputs.
+ 
+### 2.3 Semi-Supervised Learning
+A combination of supervised and unsupervised learning, where the model is trained on a **small amount of labeled data** combined with a **large amount of unlabeled data**.
+ 
+> **Definition:** Learning from a dataset that contains a small portion of labeled examples and a large portion of unlabeled examples, using the labeled part to guide learning on the unlabeled part.
+ 
+**Why used:** Labeling data is often expensive/time-consuming, but unlabeled data is cheap and abundant. This method makes use of both.
+**Example:** Labeling a few photos as "cat"/"dog" and letting the model use thousands of unlabeled photos to improve itself (e.g., Google Photos face grouping).
+ 
+### 2.4 Reinforcement Learning (RL)
+The model (called an **agent**) learns by **interacting with an environment**, taking actions, and receiving **rewards or penalties** as feedback. There is no fixed dataset — the agent learns through trial and error to maximize cumulative reward.
+ 
+> **Definition:** Learning optimal actions through trial-and-error interaction with an environment, guided by rewards and penalties, to maximize long-term cumulative reward.
+ 
+**Key components:** Agent, Environment, State, Action, Reward, Policy
+**Examples:** Self-driving cars, game-playing AI (AlphaGo, Chess engines), robotics.
+ 
+---
+ 
+## 3. Sub-types of Each Type
+ 
+### 3.1 Sub-types of Supervised Learning
+ 
+| Sub-type | Definition |
+|---|---|
+| **Regression** | Predicts a **continuous numerical value** as output. Example: predicting house price, temperature, salary. |
+| **Classification** | Predicts a **discrete category/class label** as output. Example: spam vs not-spam, disease detection (yes/no). |
+ 
+- **Binary Classification** — output has only 2 classes (e.g., pass/fail).
+- **Multi-class Classification** — output has more than 2 classes (e.g., classifying types of flowers).
+- **Multi-label Classification** — a single input can belong to multiple classes simultaneously (e.g., a movie tagged as both "Action" and "Comedy").
+### 3.2 Sub-types of Unsupervised Learning
+ 
+| Sub-type | Definition |
+|---|---|
+| **Clustering** | Grouping similar data points together based on similarity, without predefined labels. Example: customer segmentation. |
+| **Dimensionality Reduction** | Reducing the number of input features/variables while preserving important information. Example: PCA (Principal Component Analysis). |
+| **Association Rule Learning** | Finding relationships/associations between variables in large datasets. Example: Market Basket Analysis ("customers who buy bread also buy butter"). |
+| **Anomaly Detection** | Identifying unusual data points that differ significantly from the majority. Example: fraud detection. |
+ 
+### 3.3 Sub-types of Reinforcement Learning
+ 
+| Sub-type | Definition |
+|---|---|
+| **Model-Based RL** | The agent builds/uses a model of the environment to predict outcomes of actions before taking them. |
+| **Model-Free RL** | The agent learns purely through trial-and-error from rewards, without building an internal model of the environment (e.g., Q-Learning). |
+| **Positive Reinforcement Learning** | Learning is reinforced by rewarding desired behavior. |
+| **Negative Reinforcement Learning** | Learning is reinforced by removing/avoiding an undesired condition. |
+ 
+---
+ 
+## 4. Semi-Supervised & Reinforcement Learning (Summary)
+ 
+Already defined in detail above (Sections 2.3 and 2.4). Quick recap:
+ 
+- **Semi-Supervised Learning** → few labels + many unlabeled samples → cost-effective learning.
+- **Reinforcement Learning** → no dataset; learning via reward/penalty feedback loop with an agent and environment.
+---
+ 
+## 5. Batch (Offline) Learning vs Online Learning
+ 
+This classification is based on **how/when the model learns from data** (not what type of problem it solves).
+ 
+### Batch / Offline Learning
+The model is trained on the **entire dataset at once**. Once trained, it is deployed and does **not** learn further until it is retrained manually with new data (usually from scratch or scheduled retraining).
+ 
+**Characteristics:**
+- Requires all data to be available beforehand.
+- Training is computationally expensive and time-consuming.
+- Model becomes "stale" over time — needs periodic retraining.
+- Good for stable environments where data doesn't change quickly.
+### Online Learning
+The model learns **incrementally**, by processing data **sequentially, one instance (or small mini-batch) at a time**, and updates itself continuously as new data arrives.
+ 
+**Characteristics:**
+- No need to store the entire dataset in memory.
+- Can adapt quickly to new patterns/trends (concept drift).
+- Useful for streaming data (stock prices, sensor data, live user behavior).
+- Risk: bad/noisy incoming data can degrade the model if not monitored (controlled using a "learning rate").
+| Aspect | Batch / Offline Learning | Online Learning |
+|---|---|---|
+| Data availability | Needs full dataset upfront | Learns as data streams in |
+| Update frequency | Periodic (manual retraining) | Continuous / incremental |
+| Memory usage | High (loads full dataset) | Low (processes small chunks) |
+| Adaptability | Slow to adapt to new patterns | Fast, adapts in real time |
+| Example use case | Email spam filter trained monthly | Stock price prediction, recommendation systems |
+ 
+---
+ 
+## 6. Dynamic Learning
+ 
+**Dynamic Learning** refers to a system's ability to **continuously update and adapt its model as new data becomes available**, rather than being static/fixed after one-time training.
+ 
+- It is closely related to **online learning**, since the model changes dynamically over time instead of remaining frozen.
+- Helps handle **concept drift** — when the statistical properties of the target variable change over time (e.g., customer buying behavior changing with seasons/trends).
+- Opposite of a **static model**, which is trained once and never updated regardless of new data patterns.
+> **Definition:** The ability of an ML system to keep learning and adjusting its parameters continuously in response to new incoming data, keeping the model relevant over time.
+ 
+---
+ 
+## 7. Out-of-Core Learning
+ 
+**Out-of-Core Learning** is a technique used when the **dataset is too large to fit into a computer's main memory (RAM)** all at once.
+ 
+The algorithm loads small chunks (mini-batches) of data from disk into memory, learns from that chunk, updates the model, discards that chunk, and loads the next one — repeating until the entire dataset has been processed.
+ 
+> **Definition:** A learning approach where the model is trained incrementally on small chunks of data loaded sequentially from disk, since the full dataset cannot fit into memory at once.
+ 
+This is essentially how **online learning algorithms** are applied to **massive datasets**.
+ 
+### Two Fundamental Goals of Learning
+ 
+| Concept | Definition |
+|---|---|
+| **1. Memorizing** | The model learns the training data too precisely/literally — including noise and specific details — rather than the underlying pattern. This leads to **overfitting**: excellent performance on training data but poor performance on new/unseen data. |
+| **2. Generalizing** | The model learns the **underlying pattern/trend** in the data rather than memorizing specific examples, allowing it to perform well on **new, unseen data**. This is the actual goal of any good ML model. |
+ 
+**Golden Rule of ML:** A good model generalizes well — it doesn't just memorize the training set; it captures the true relationship between inputs and outputs so it works correctly on data it has never seen before.
+ 
+---
+ 
+## 8. Instance-Based Learning vs Model-Based Learning
+ 
+This classification is based on **how the algorithm generalizes from training data**.
+ 
+### Instance-Based Learning ("Lazy" Learning)
+The system learns the training examples **by heart (memorizes them)** and generalizes to new data by comparing it to the stored/known instances using a **similarity measure**.
+ 
+**Characteristics:**
+- No explicit model/formula is built during training — the training data itself acts as the model.
+- Prediction is made at query time by finding the most "similar" stored examples.
+- Training is fast (just stores data), but prediction can be slow (must compare with all stored data).
+- Example algorithm: **K-Nearest Neighbors (KNN)**.
+> **Definition:** A learning approach where the algorithm memorizes the training instances and makes predictions for new data by comparing it with similarity to these stored instances.
+ 
+### Model-Based Learning
+The system uses the training data to build/estimate a **general mathematical model (a set of parameters)** that best fits the patterns in the data. Once trained, the model itself (not the raw data) is used to make predictions.
+ 
+**Characteristics:**
+- Learns a generalized function/equation (e.g., a line, curve, or set of weights).
+- Training can take longer (needs to optimize parameters), but prediction is fast once the model is built.
+- The original training data is not needed after the model is trained.
+- Example algorithms: **Linear Regression, Logistic Regression, Decision Trees, Neural Networks.**
+> **Definition:** A learning approach where the algorithm builds a generalized mathematical model from the training data, and uses that model (instead of raw stored data) to make predictions on new inputs.
+ 
+| Aspect | Instance-Based Learning | Model-Based Learning |
+|---|---|---|
+| Learning style | Memorizes training data | Builds a general model/function |
+| Training time | Fast | Slower (optimization involved) |
+| Prediction time | Slower (compares with all stored instances) | Fast (just applies the learned formula) |
+| Memory usage | High (must store all training data) | Low (only stores model parameters) |
+| Example algorithm | K-Nearest Neighbors (KNN) | Linear Regression, Decision Trees, Neural Networks |
+ 
+---
+ 
+## Quick Summary Map
+ 
+```
+Machine Learning
+│
+├── Based on Learning Style (Types)
+│   ├── Supervised Learning
+│   │   ├── Regression
+│   │   └── Classification (Binary / Multi-class / Multi-label)
+│   ├── Unsupervised Learning
+│   │   ├── Clustering
+│   │   ├── Dimensionality Reduction
+│   │   ├── Association Rule Learning
+│   │   └── Anomaly Detection
+│   ├── Semi-Supervised Learning
+│   └── Reinforcement Learning
+│       ├── Model-Based RL
+│       └── Model-Free RL
+│
+├── Based on Training Mode
+│   ├── Batch / Offline Learning
+│   └── Online Learning
+│       └── Dynamic Learning (continuous adaptation)
+│           └── Out-of-Core Learning (for very large datasets)
+│
+└── Based on Generalization Approach
+    ├── Instance-Based Learning (e.g., KNN)
+    └── Model-Based Learning (e.g., Linear Regression, Neural Nets)
+```
